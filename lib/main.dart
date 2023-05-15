@@ -1,4 +1,4 @@
-import 'package:arte_ctt_app/src/screens/home/bottom_bar.dart';
+import 'package:arte_ctt_app/src/screens/home/main_screen.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       //home: MyHomePage()
       theme: ThemeData(
+        useMaterial3: true,
         fontFamily: "Manrope",
         colorScheme: theme.colorScheme.copyWith(
           primary: Styles.primaryColor,

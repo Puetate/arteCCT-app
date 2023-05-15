@@ -1,10 +1,15 @@
+import 'package:arte_ctt_app/src/data/in_memory_pictures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+
 import 'package:arte_ctt_app/src/data/datasource/api_repository_impl.dart';
 import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/screens/components/gradient_container.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/picture_component.dart';
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
-import 'package:flutter/material.dart';
+
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -15,9 +20,33 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   ApiRepositoryImpl serviceApi = ApiRepositoryImpl();
+
   @override
   Widget build(BuildContext context) {
     final Size size = AppLayout.getSize(context);
+
+    final picturesFrontPages = [
+      PictureFrontPage(
+        heightPicture: (size.height - 112),
+        width: size.width,
+        heightGradient: (size.height * 0.13),
+        picture: pictures[1],
+      ),
+      PictureFrontPage(
+        heightPicture: (size.height - 112),
+        width: size.width,
+        heightGradient: (size.height * 0.13),
+        picture: pictures[2],
+      ),
+      PictureFrontPage(
+        heightPicture: (size.height - 112),
+        width: size.width,
+        heightGradient: (size.height * 0.13),
+        picture: pictures[3],
+      )
+    ];
+
+    String assetName = 'assets/svg/RCCT.svg';
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ListView(
@@ -28,26 +57,7 @@ class _HomeTabState extends State<HomeTab> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    PictureFrontPage(
-                      heightPicture: (size.height - 112),
-                      width: size.width,
-                      heightGradient: (size.height * 0.13),
-                      picture: Picture(
-                          id: '1',
-                          name: 'name',
-                          autor: 'autor',
-                          image: 'assets/images/image_1.png'),
-                    ),
-                    PictureFrontPage(
-                      heightPicture: (size.height - 112),
-                      width: size.width,
-                      heightGradient: (size.height * 0.13),
-                      picture: Picture(
-                          id: '1',
-                          name: 'pepeniño',
-                          autor: 'autor',
-                          image: 'assets/images/image_1.png'),
-                    ),
+                    ...picturesFrontPages,
                   ],
                 ),
               ),
@@ -65,26 +75,60 @@ class _HomeTabState extends State<HomeTab> {
                       style: Styles.textStyleTitle,
                     ),
                   ),
+                  
                 ],
               ),
             ],
           ),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
-          Text('texto---'),
+          const Gap(20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Pinturas',
+                  style: Styles.textStyleTitle
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+                Icon(
+                  Icons.chevron_right_sharp,
+                  color: Styles.white,
+                  size: 40,
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Styles.secondary,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35)),
+                padding: const EdgeInsets.symmetric(vertical: 1),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset(
+                      'assets/images/RCCT.png',
+                      height: 65,
+                    ),
+                    Icon(
+                      Icons.play_circle_filled_rounded,
+                      color: Styles.white,
+                      size: 50,
+                    )
+                  ],
+                ),
+              ),
+              onPressed: () async {},
+            ),
+          ),
         ],
       ),
     );

@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:iconsax/iconsax.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+
 import 'package:arte_ctt_app/src/screens/home/tabs/artist_tab/artist_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/home_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/radio_tab/radio_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/scanner_tab/scanner_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/search_tab/search_tab.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:iconsax/iconsax.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -58,8 +60,8 @@ class _HomeState extends State<Home> {
           child: GNav(
             gap: 8,
             haptic: true,
-            color: Styles.secondary,
-            activeColor: Styles.secondary,
+            color: Styles.onSecondary,
+            activeColor: Styles.onSecondary,
             tabBackgroundColor: Styles.containerNavButton,
             selectedIndex: _selectedIndex,
             onTabChange: _onItemTapped,
