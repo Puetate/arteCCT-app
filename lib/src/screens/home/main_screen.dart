@@ -18,31 +18,43 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final PageController _pageController = PageController();
   int _selectedIndex = 0;
-  static final List<Widget> _widgetOptions = <Widget>[
-    HomeTab(),
-    ScannerTab(),
-    SearchTab(),
-    ArtistTab(),
-    RadioTab()
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOut,
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: /* Container(
         decoration: BoxDecoration(
           color: Styles.primaryColor,
         ),
         child: Center(
           child: _widgetOptions[_selectedIndex],
         ),
+      ), */
+          Container(
+        color: Styles.primaryColor,
+        child: PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: const [
+              HomeTab(),
+              ScannerTab(),
+              SearchTab(),
+              ArtistTab(),
+              RadioTab()
+            ]),
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(top: 3),
