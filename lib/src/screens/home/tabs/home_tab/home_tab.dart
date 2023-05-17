@@ -1,4 +1,7 @@
 import 'package:arte_ctt_app/src/data/in_memory_pictures.dart';
+import 'package:arte_ctt_app/src/screens/components/card_images.dart';
+import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/courusel.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -6,10 +9,9 @@ import 'package:gap/gap.dart';
 import 'package:arte_ctt_app/src/data/datasource/api_repository_impl.dart';
 import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/screens/components/gradient_container.dart';
-import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/picture_component.dart';
+import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/cover_image.dart';
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
-
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -26,19 +28,19 @@ class _HomeTabState extends State<HomeTab> {
     final Size size = AppLayout.getSize(context);
 
     final picturesFrontPages = [
-      PictureFrontPage(
+      CoverImage(
         heightPicture: (size.height - 112),
         width: size.width,
         heightGradient: (size.height * 0.13),
         picture: pictures[1],
       ),
-      PictureFrontPage(
+      CoverImage(
         heightPicture: (size.height - 112),
         width: size.width,
         heightGradient: (size.height * 0.13),
         picture: pictures[2],
       ),
-      PictureFrontPage(
+      CoverImage(
         heightPicture: (size.height - 112),
         width: size.width,
         heightGradient: (size.height * 0.13),
@@ -46,43 +48,98 @@ class _HomeTabState extends State<HomeTab> {
       )
     ];
 
-    String assetName = 'assets/svg/RCCT.svg';
+    var assetsImageRCCT = 'assets/images/RCCT.png';
+    final heightCover = (size.height - 112);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ListView(
         children: [
-          Stack(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...picturesFrontPages,
-                  ],
-                ),
-              ),
-              GradientContainer(
-                  turn: 0,
-                  withContainer: size.width,
-                  heightContainer: (size.height * 0.13)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Stack(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 20),
-                    child: Text(
-                      "Buenos Dias",
-                      style: Styles.textStyleTitle,
+                  //* ------------> CARRUSEL CAVER IMAGE
+                  CarouselSlider.builder(
+                    itemCount: pictures.length - 3,
+                    options: CarouselOptions(
+                      height: heightCover,
+                      viewportFraction: 1.0,
+                      enlargeCenterPage: false,
+                      // autoPlay: false,
                     ),
+                    itemBuilder: (context, index, realIdx) {
+                      final coverImage = pictures[index];
+                      return CoverImage(
+                        heightPicture: heightCover,
+                        width: size.width,
+                        heightGradient: (size.height * 0.13),
+                        picture: coverImage,
+                      );
+                    },
                   ),
-                  
+
+                  GradientContainer(
+                      turn: 0,
+                      withContainer: size.width,
+                      heightContainer: (size.height * 0.13)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, left: 20),
+                        child: Text(
+                          "Buenos Dias",
+                          style: Styles.textStyleTitle,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: heightCover,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: Styles.transparent,
+                        ),
+                        Transform.translate(
+                          offset: const Offset(0, -10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                Icons.chevron_right_rounded,
+                                size: 40,
+                                color: Styles.white.withOpacity(0.7),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Transform.translate(
+                          offset: const Offset(0, -10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                size: 40,
+                                color: Styles.white.withOpacity(0.5),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ],
           ),
-          const Gap(20),
+
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -99,8 +156,29 @@ class _HomeTabState extends State<HomeTab> {
               ],
             ),
           ),
+          //* -------------> CAROUSEL PINTURAS
+          const Gap(5),
+          CarouselSlider.builder(
+            itemCount: pictures.length,
+            options: CarouselOptions(
+              enableInfiniteScroll: false,
+              autoPlay: true,
+              height: 200.0,
+              autoPlayCurve: Curves.easeInOut,
+              enlargeCenterPage: true,
+              autoPlayInterval: const Duration(seconds: 5),
+            ),
+            itemBuilder: (context, index, realIdx) {
+              final pictureCarousel = pictures[index];
+              return CardImage(
+                picture: pictureCarousel,
+              );
+            },
+          ),
+
+          //* -------------> BOTÓN RADIO
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Styles.secondary,
@@ -115,7 +193,7 @@ class _HomeTabState extends State<HomeTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(
-                      'assets/images/RCCT.png',
+                      assetsImageRCCT,
                       height: 65,
                     ),
                     Icon(

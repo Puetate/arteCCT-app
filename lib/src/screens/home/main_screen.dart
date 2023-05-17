@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:iconsax/iconsax.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'package:arte_ctt_app/src/screens/home/tabs/artist_tab/artist_tab.dart';
@@ -59,10 +57,10 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(top: 3),
         decoration: BoxDecoration(
-          border: const Border(
+          border: Border(
             top: BorderSide(
               width: 1,
-              color: Color.fromARGB(255, 176, 217, 255),
+              color: Styles.bottonNBarBorderColor
             ),
           ),
           color: Styles.onPrimary,

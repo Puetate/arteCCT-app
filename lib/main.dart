@@ -33,11 +33,11 @@ class MyApp extends StatelessWidget {
         return MaterialPageRoute(builder: (BuildContext context) {
           switch (settings.name) {
             case "/":
-              return Home();
+              return const Home();
             case "/homePage":
-              return Home();
+              return const Home();
             default:
-              return Home();
+              return const Home();
           }
         });
       },

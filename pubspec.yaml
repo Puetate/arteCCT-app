@@ -44,6 +44,7 @@ dependencies:
   gap: ^2.0.1
   flutter_svg: ^2.0.5
   badges: ^3.1.1
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
