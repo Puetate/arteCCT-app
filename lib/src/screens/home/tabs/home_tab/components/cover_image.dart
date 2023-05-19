@@ -1,9 +1,10 @@
 import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/screens/components/gradient_container.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CoverImage extends StatefulWidget {
+class CoverImage extends StatelessWidget {
   const CoverImage({
     super.key,
     required this.width,
@@ -16,20 +17,14 @@ class CoverImage extends StatefulWidget {
   final double heightPicture;
   final Picture picture;
 
-  @override
-  State<CoverImage> createState() => _CoverImageState();
-}
-
-class _CoverImageState extends State<CoverImage> {
   //bool _up = false;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         SizedBox(
-          height: widget.heightPicture,
-          width: widget.width,
+          height: heightPicture,
+          width: width,
           child: InkWell(
             splashColor: Colors.red,
             /* onTap: () {
@@ -43,8 +38,7 @@ class _CoverImageState extends State<CoverImage> {
           }, */
             child: FadeInImage(
               placeholder: const AssetImage("assets/images/loading1.gif"),
-              image: /* AssetImage(picture.image) */
-                  NetworkImage(widget.picture.image),
+              image: CachedNetworkImageProvider(picture.image),
               fit: BoxFit.cover,
             ),
           ),
@@ -56,8 +50,8 @@ class _CoverImageState extends State<CoverImage> {
               children: [
                 GradientContainer(
                     turn: 2,
-                    withContainer: widget.width,
-                    heightContainer: widget.heightGradient),
+                    withContainer: width,
+                    heightContainer: heightGradient),
                 Column(
                   children: [
                     Row(
@@ -66,7 +60,7 @@ class _CoverImageState extends State<CoverImage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 15, left: 20),
                           child: Text(
-                            widget.picture.name,
+                            picture.name,
                             style: Styles.textStyleTitle,
                           ),
                         ),

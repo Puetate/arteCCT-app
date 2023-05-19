@@ -89,8 +89,8 @@ class _HomeTabState extends State<HomeTab> {
                       Padding(
                         padding: const EdgeInsets.only(top: 15, left: 20),
                         child: Text(
-                          "Buenos Dias",
-                          style: Styles.textStyleTitle,
+                          "Pinturas Destacadas",
+                          style: Styles.textStyleTitle.copyWith(fontSize: 20),
                         ),
                       ),
                     ],
@@ -161,7 +161,7 @@ class _HomeTabState extends State<HomeTab> {
           CarouselSlider.builder(
             itemCount: pictures.length,
             options: CarouselOptions(
-              enableInfiniteScroll: false,
+              enableInfiniteScroll: true,
               autoPlay: true,
               height: 200.0,
               autoPlayCurve: Curves.easeInOut,

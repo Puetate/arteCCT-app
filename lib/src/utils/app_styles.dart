@@ -22,4 +22,9 @@ class Styles {
     fontWeight: FontWeight.w600,
     color: white,
   );
+  static TextStyle textStyleTitleAgendaCultural = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
+    color: primaryColor,
+  );
 }

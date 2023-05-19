@@ -1,4 +1,5 @@
 import 'package:arte_ctt_app/src/domain/models/picture.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CardImage extends StatelessWidget {
@@ -24,7 +25,7 @@ class CardImage extends StatelessWidget {
           }, */
           child: FadeInImage(
             placeholder: const AssetImage("assets/images/loading1.gif"),
-            image: /* AssetImage(picture.image) */ NetworkImage(picture.image),
+            image: /* AssetImage(picture.image) */ CachedNetworkImageProvider(picture.image),
             fit: BoxFit.cover,
           ),
         ),
