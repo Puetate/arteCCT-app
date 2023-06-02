@@ -1,5 +1,7 @@
+import 'package:arte_ctt_app/src/screens/components/tooltip_notifications_agenda.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 import 'package:arte_ctt_app/src/screens/home/tabs/artist_tab/artist_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/home_tab.dart';
@@ -7,12 +9,10 @@ import 'package:arte_ctt_app/src/screens/home/tabs/radio_tab/radio_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/scanner_tab/scanner_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/search_tab/search_tab.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:just_the_tooltip/just_the_tooltip.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
-
   @override
   State<Home> createState() => _HomeState();
 }
@@ -63,36 +63,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: JustTheTooltip(
-                        isModal: true,
-                        controller: tooltipController,
-                        content: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Agenda Cultural',
-                                style: Styles.textStyleTitleAgendaCultural
-                                    .copyWith(color: Styles.primaryColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                        child: badges.Badge(
-                          position:
-                              badges.BadgePosition.topEnd(top: -10, end: -5),
-                          showBadge: true,
-                          ignorePointer: false,
-                          badgeContent: const Text(" "),
-                          badgeAnimation: const badges.BadgeAnimation.slide(),
-                          child: const Icon(Icons.notifications,
-                              size: 27, color: Colors.white),
-                        ),
-                      ),
-                    ),
+                    child: TooltipNotificationsAgenda(tooltipController: tooltipController),
                     onTap: () => showTooltip,
                   )
                 ],
@@ -148,3 +119,5 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+

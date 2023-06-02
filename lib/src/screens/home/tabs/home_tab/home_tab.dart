@@ -1,13 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:arte_ctt_app/src/data/in_memory_pictures.dart';
 import 'package:arte_ctt_app/src/screens/components/card_images.dart';
-import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/courusel.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
-
 import 'package:arte_ctt_app/src/data/datasource/api_repository_impl.dart';
-import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/screens/components/gradient_container.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/cover_image.dart';
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
@@ -26,27 +23,6 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     final Size size = AppLayout.getSize(context);
-
-    final picturesFrontPages = [
-      CoverImage(
-        heightPicture: (size.height - 112),
-        width: size.width,
-        heightGradient: (size.height * 0.13),
-        picture: pictures[1],
-      ),
-      CoverImage(
-        heightPicture: (size.height - 112),
-        width: size.width,
-        heightGradient: (size.height * 0.13),
-        picture: pictures[2],
-      ),
-      CoverImage(
-        heightPicture: (size.height - 112),
-        width: size.width,
-        heightGradient: (size.height * 0.13),
-        picture: pictures[3],
-      )
-    ];
 
     var assetsImageRCCT = 'assets/images/RCCT.png';
     final heightCover = (size.height - 112);

@@ -25,7 +25,8 @@ class CardImage extends StatelessWidget {
           }, */
           child: FadeInImage(
             placeholder: const AssetImage("assets/images/loading1.gif"),
-            image: /* AssetImage(picture.image) */ CachedNetworkImageProvider(picture.image),
+            image: /* AssetImage(picture.image) */
+                CachedNetworkImageProvider(picture.image),
             fit: BoxFit.cover,
           ),
         ),
