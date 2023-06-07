@@ -1,8 +1,8 @@
-import 'package:arte_ctt_app/src/screens/components/tooltip_notifications_agenda.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
+import 'package:arte_ctt_app/src/screens/components/tooltip_notifications_agenda.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/artist_tab/artist_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/home_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/radio_tab/radio_tab.dart';
