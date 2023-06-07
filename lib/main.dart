@@ -1,9 +1,14 @@
+import 'package:arte_ctt_app/src/providers/radio_provider.dart';
 import 'package:arte_ctt_app/src/screens/home/main_screen.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => RadioProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
