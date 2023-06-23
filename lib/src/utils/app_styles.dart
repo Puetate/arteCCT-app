@@ -9,7 +9,9 @@ class Styles {
   static Color transparent = const Color.fromARGB(0, 0, 0, 0);
   static Color bottonNBarBorderColor = const Color.fromARGB(255, 176, 217, 255);
   static Color white = const Color.fromARGB(255, 255, 255, 255);
-  static Color magenta  = Color.fromARGB(255, 224, 17, 96);
+  static Color magenta = Color.fromARGB(255, 224, 17, 96);
+  static Color blue = Color.fromARGB(255, 7, 30, 61);
+  static Color blueGradient = Color.fromARGB(121, 7, 30, 61);
 
   //gradientContainer
   static Color gradient_0 = const Color.fromARGB(255, 26, 33, 63);
