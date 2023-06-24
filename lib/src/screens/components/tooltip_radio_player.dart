@@ -64,13 +64,7 @@ class _TooltipRadioPlayerState extends State<TooltipRadioPlayer>
                             CircleBorder(side: BorderSide(color: Styles.white)),
                         backgroundColor: Styles.blue,
                         onPressed: () {
-                          context.read<RadioProvider>().playing
-                              ? context.read<RadioProvider>().radioPlayer.stop()
-                              : context
-                                  .read<RadioProvider>()
-                                  .radioPlayer
-                                  .play();
-                          // animationControl();
+                          context.read<RadioProvider>().togglePlaying();
                         },
                         child: AnimatedIcon(
                           icon: context.watch<RadioProvider>().playing

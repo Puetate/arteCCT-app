@@ -5,7 +5,6 @@ import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:radio_player/radio_player.dart';
 
 class RadioTab extends StatefulWidget {
   const RadioTab({super.key});
@@ -18,7 +17,6 @@ class _RadioTabState extends State<RadioTab>
     with SingleTickerProviderStateMixin {
   final String cttLogoPath = "assets/images/cct_logo.png";
   final title = "Casa de la cultura Tungurahua";
-  final RadioPlayer _radioPlayer = RadioPlayer();
 
   late AnimationController controller;
   late Animation<double> animation;
@@ -85,9 +83,7 @@ class _RadioTabState extends State<RadioTab>
                           shape: const CircleBorder(),
                           backgroundColor: Styles.white,
                           onPressed: () {
-                            context.read<RadioProvider>().playing ? 
-                              context.read<RadioProvider>().radioPlayer.stop():
-                              context.read<RadioProvider>().radioPlayer.play();
+                            context.read<RadioProvider>().togglePlaying();
                           },
                           child: AnimatedIcon(
                             icon: context.watch<RadioProvider>().playing
