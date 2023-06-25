@@ -10,7 +10,7 @@ final pictures = [
       bibliography:
           'Marilyn Manson, cuyo nombre real es Brian Hugh Warner, nació el 5 de enero de 1969 en Canton, Ohio, Estados Unidos. Es un músico, cantante y actor reconocido por su estilo controvertido y provocador.',
       description:
-          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa'),
+          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa.'),
   const Picture(
       id: '2',
       name: 'Marina',
@@ -20,7 +20,7 @@ final pictures = [
       bibliography:
           'Marilyn Manson, cuyo nombre real es Brian Hugh Warner, nació el 5 de enero de 1969 en Canton, Ohio, Estados Unidos. Es un músico, cantante y actor reconocido por su estilo controvertido y provocador.',
       description:
-          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa'),
+          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa.'),
   const Picture(
       id: '3',
       name: 'Caballos Briosos',
@@ -30,7 +30,7 @@ final pictures = [
       bibliography:
           'Marilyn Manson, cuyo nombre real es Brian Hugh Warner, nació el 5 de enero de 1969 en Canton, Ohio, Estados Unidos. Es un músico, cantante y actor reconocido por su estilo controvertido y provocador.',
       description:
-          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa'),
+          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa.'),
   const Picture(
       id: '4',
       name: 'Mi Mejor Amigo',
@@ -40,7 +40,7 @@ final pictures = [
       bibliography:
           'Marilyn Manson, cuyo nombre real es Brian Hugh Warner, nació el 5 de enero de 1969 en Canton, Ohio, Estados Unidos. Es un músico, cantante y actor reconocido por su estilo controvertido y provocador.',
       description:
-          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa'),
+          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa.'),
   const Picture(
       id: '5',
       name: 'Noche Azul',
@@ -50,7 +50,7 @@ final pictures = [
       bibliography:
           'Marilyn Manson, cuyo nombre real es Brian Hugh Warner, nació el 5 de enero de 1969 en Canton, Ohio, Estados Unidos. Es un músico, cantante y actor reconocido por su estilo controvertido y provocador.',
       description:
-          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa'),
+          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa.'),
   const Picture(
       id: '6',
       name: 'Muerte',
@@ -60,5 +60,5 @@ final pictures = [
       bibliography:
           'Marilyn Manson, cuyo nombre real es Brian Hugh Warner, nació el 5 de enero de 1969 en Canton, Ohio, Estados Unidos. Es un músico, cantante y actor reconocido por su estilo controvertido y provocador.',
       description:
-          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa'),
+          'La Mona Lisa, también conocida como La Gioconda, es una famosa pintura creada por el renombrado artista italiano Leonardo da Vinci. La obra maestra es un retrato en óleo sobre tabla de madera de una mujer con una enigmática sonrisa.'),
 ];

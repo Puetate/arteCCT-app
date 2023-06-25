@@ -1,12 +1,10 @@
 import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/screens/components/gradient_container.dart';
-import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/cover_image.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/details_image.dart';
 import 'package:arte_ctt_app/src/screens/picture_info/components/history_bibliography_picture.dart';
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
 class PictureInfoScreen extends StatefulWidget {
@@ -32,7 +30,7 @@ class _PictureInfoScreenState extends State<PictureInfoScreen> {
   }
 
   String getInfoPictureToSpeech(Picture picture) =>
-      "${picture.name}. historia. ${picture.description} Autor. ${picture.autor}. ${picture.bibliography}";
+      "${picture.name}. Historia. ${picture.description} Autor. ${picture.autor}. ${picture.bibliography}";
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,6 @@ class _PictureInfoScreenState extends State<PictureInfoScreen> {
           SliverAppBar(
             iconTheme: IconThemeData(color: Styles.white),
             backgroundColor: Styles.primaryColor,
-            floating: true,
           ),
           SliverList(
               delegate: SliverChildListDelegate([
@@ -93,7 +90,7 @@ class _PictureInfoScreenState extends State<PictureInfoScreen> {
                                     onPressed: () {
                                       controller.animateTo(
                                           controller.position.maxScrollExtent,
-                                          duration: Duration(seconds: 25),
+                                          duration: const Duration(seconds: 25),
                                           curve: Curves.linear);
 
                                       speak(getInfoPictureToSpeech(picture));

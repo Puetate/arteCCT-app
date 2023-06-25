@@ -10,8 +10,11 @@ import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/cover_ima
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 
+typedef OnIndexTab = Function(int index);
+
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+  final OnIndexTab onIndexTab;
+  const HomeTab({super.key, required this.onIndexTab});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -180,7 +183,9 @@ class _HomeTabState extends State<HomeTab> {
                   ],
                 ),
               ),
-              onPressed: () async {},
+              onPressed: () {
+                widget.onIndexTab(4);
+              },
             ),
           ),
         ],
@@ -188,43 +193,3 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 }
-
-/* 
-SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: FutureBuilder<List<Picture>>(
-                  future: serviceApi.getPictures(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return snapshot.data!.isNotEmpty
-                          ? ListView.builder(
-                              itemCount: snapshot.data?.length,
-                              itemBuilder: (context, index) {
-                                final picture = snapshot.data![index];
-                                return PictureFrontPage(
-                                  heightPicture: (size.height - 112),
-                                  width: size.width,
-                                  heightGradient: (size.height * 0.13),
-                                  picture: picture,
-                                );
-                              },
-                            )
-                          : const Center(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  "No existen pinturas destacadas",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: Styles.primaryColor,
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ), */

@@ -3,6 +3,7 @@ import 'package:arte_ctt_app/src/screens/home/main_screen.dart';
 import 'package:arte_ctt_app/src/screens/picture_info/picture_info.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -35,21 +36,36 @@ class MyApp extends StatelessWidget {
 
       initialRoute: "/",
       onGenerateRoute: (RouteSettings settings) {
-        // ignore: missing_return
-        return MaterialPageRoute(
-            builder: (BuildContext context) {
-              switch (settings.name) {
-                case "/":
-                  return const Home();
-                case "/homePage":
-                  return const Home();
-                case "/picture_info":
-                  return const PictureInfoScreen();
-                default:
-                  return const Home();
-              }
-            },
-            settings: settings);
+        switch (settings.name) {
+          case "/":
+            return PageTransition(
+              child: const Home(),
+              type: PageTransitionType.fade,
+              duration: const Duration(milliseconds: 700),
+              settings: settings,
+            );
+          case "/homePage":
+            return PageTransition(
+              child: const Home(),
+              type: PageTransitionType.fade,
+              duration: const Duration(milliseconds: 700),
+              settings: settings,
+            );
+          case "/picture_info":
+            return PageTransition(
+              child: const PictureInfoScreen(),
+              type: PageTransitionType.fade,
+              duration: const Duration(milliseconds: 1000),
+              settings: settings,
+            );
+          default:
+            return PageTransition(
+              child: const Home(),
+              type: PageTransitionType.fade,
+              duration: const Duration(milliseconds: 700),
+              settings: settings,
+            );
+        }
       },
     );
   }

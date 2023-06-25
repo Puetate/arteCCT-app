@@ -10,7 +10,6 @@ import 'package:arte_ctt_app/src/screens/home/tabs/scanner_tab/scanner_tab.dart'
 import 'package:arte_ctt_app/src/screens/home/tabs/search_tab/search_tab.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 
-
 class Home extends StatefulWidget {
   const Home({super.key});
   @override
@@ -49,12 +48,14 @@ class _HomeState extends State<Home> {
               child: PageView(
                   controller: _pageController,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    HomeTab(),
-                    ScannerTab(),
-                    SearchTab(),
-                    ArtistTab(),
-                    RadioTab()
+                  children: [
+                    HomeTab(
+                      onIndexTab: _onItemTapped,
+                    ),
+                    const ScannerTab(),
+                    const SearchTab(),
+                    const ArtistTab(),
+                    const RadioTab()
                   ]),
             ),
             Padding(
@@ -63,7 +64,8 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    child: TooltipNotificationsAgenda(tooltipController: tooltipController),
+                    child: TooltipNotificationsAgenda(
+                        tooltipController: tooltipController),
                     onTap: () => showTooltip,
                   )
                 ],
@@ -76,7 +78,7 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.only(top: 3),
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(width: 1, color: Styles.bottonNBarBorderColor),
+            top: BorderSide(width: 1, color: Styles.buttonNBarBorderColor),
           ),
           color: Styles.onPrimary,
         ),
@@ -119,5 +121,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-
