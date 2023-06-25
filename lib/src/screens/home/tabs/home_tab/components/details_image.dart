@@ -4,8 +4,8 @@ import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CoverImage extends StatelessWidget {
-  const CoverImage({
+class DetailsImage extends StatelessWidget {
+  const DetailsImage({
     super.key,
     required this.width,
     required this.heightGradient,
@@ -25,17 +25,8 @@ class CoverImage extends StatelessWidget {
         SizedBox(
           height: heightPicture,
           width: width,
-          child: InkWell(
-            splashColor: Colors.red,
-            /* onTap: () {
-            picture.copy();
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MostrarReceta(
-                          carruselImages: carruselImages,
-                        )));
-          }, */
+          child: Hero(
+            tag: picture.urlImage,
             child: FadeInImage(
               placeholder: const AssetImage("assets/images/loading1.gif"),
               image: CachedNetworkImageProvider(picture.urlImage),
@@ -66,26 +57,6 @@ class CoverImage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    /* Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedContainer(
-                          duration: Duration(milliseconds: 250),
-                          transform: Transform.translate(
-                            offset: Offset(
-                                0,
-                                _up
-                                    ? -100
-                                    : 0), // Change -100 for the y offset
-                          ).transform,
-                          child: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            size: 40,
-                            color: Styles.white,
-                          ),
-                        )
-                      ],
-                    ) */
                   ],
                 ),
               ],

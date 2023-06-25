@@ -1,5 +1,6 @@
 import 'package:arte_ctt_app/src/providers/radio_provider.dart';
 import 'package:arte_ctt_app/src/screens/home/main_screen.dart';
+import 'package:arte_ctt_app/src/screens/picture_info/picture_info.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,16 +36,20 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       onGenerateRoute: (RouteSettings settings) {
         // ignore: missing_return
-        return MaterialPageRoute(builder: (BuildContext context) {
-          switch (settings.name) {
-            case "/":
-              return const Home();
-            case "/homePage":
-              return const Home();
-            default:
-              return const Home();
-          }
-        });
+        return MaterialPageRoute(
+            builder: (BuildContext context) {
+              switch (settings.name) {
+                case "/":
+                  return const Home();
+                case "/homePage":
+                  return const Home();
+                case "/picture_info":
+                  return const PictureInfoScreen();
+                default:
+                  return const Home();
+              }
+            },
+            settings: settings);
       },
     );
   }

@@ -3,12 +3,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <queries>  
+        <intent>  
+            <action android:name="android.intent.action.TTS_SERVICE" />  
+        </intent>  
+    </queries> 
    <application
         android:label="arte_ctt_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
-        <service android:name=".core.StreamingCore"/>
+        <service android:name=".core.StreamingCore"/>         
         <activity
             android:name=".MainActivity"
             android:exported="true"

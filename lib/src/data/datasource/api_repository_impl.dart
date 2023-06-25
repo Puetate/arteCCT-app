@@ -16,4 +16,11 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     await Future.delayed(const Duration(seconds: 1));
     return agendaItems;
   }
+
+  @override
+  Future<Picture> getPicture(String id) async {
+    await Future.delayed(const Duration(seconds: 1));
+    var picture = pictures.firstWhere((element) => element.id == id);
+    return picture;
+  }
 }

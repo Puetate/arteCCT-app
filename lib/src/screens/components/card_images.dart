@@ -12,22 +12,22 @@ class CardImage extends StatelessWidget {
       width: 400,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: InkWell(
-          splashColor: Colors.red,
-          /* onTap: () {
-            picture.copy();
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MostrarReceta(
-                          carruselImages: carruselImages,
-                        )));
-          }, */
-          child: FadeInImage(
-            placeholder: const AssetImage("assets/images/loading1.gif"),
-            image: /* AssetImage(picture.image) */
-                CachedNetworkImageProvider(picture.image),
-            fit: BoxFit.cover,
+        child: Hero(
+          tag: picture.urlImage,
+          child: Material(
+            child: InkWell(
+              splashColor: Colors.red,
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed('/picture_info', arguments: picture);
+              },
+              child: FadeInImage(
+                placeholder: const AssetImage("assets/images/loading1.gif"),
+                image: /* AssetImage(picture.image) */
+                    CachedNetworkImageProvider(picture.urlImage),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
       ),
