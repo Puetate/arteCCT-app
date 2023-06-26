@@ -23,7 +23,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   ApiRepositoryImpl serviceApi = ApiRepositoryImpl();
-  int indexTabRadio = 4;
+  int indexTabRadio = 3;
 
   @override
   Widget build(BuildContext context) {

@@ -24,6 +24,7 @@ class TooltipNotificationsAgenda extends StatelessWidget {
       child: JustTheTooltip(
         isModal: true,
         controller: tooltipController,
+        backgroundColor: Styles.blueGradient,
         content: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
@@ -38,7 +39,7 @@ class TooltipNotificationsAgenda extends StatelessWidget {
                       Text(
                         'Agenda Cultural',
                         style: Styles.textStyleTitleAgendaCultural
-                            .copyWith(color: Styles.primaryColor),
+                            .copyWith(color: Styles.white),
                       ),
                     ],
                   ),

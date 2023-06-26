@@ -90,7 +90,7 @@ class _TooltipRadioPlayerState extends State<TooltipRadioPlayer>
           ignorePointer: true,
           badgeContent: const Text(" "),
           badgeAnimation: const badges.BadgeAnimation.slide(),
-          child: const Icon(Icons.abc_outlined, size: 27, color: Colors.white),
+          child: const Icon(Icons.radio_rounded, size: 27, color: Colors.white),
         ),
       ),
     );

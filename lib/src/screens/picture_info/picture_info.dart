@@ -49,7 +49,7 @@ class _PictureInfoScreenState extends State<PictureInfoScreen>
   }
 
   String getInfoPictureToSpeech(Picture picture) {
-    return "${picture.name}. Historia. ${picture.description}. Autor. ${picture.author.bibliography}";
+    return "${picture.name}. Historia. ${picture.description}. Autor. ${picture.author.fullName} ${picture.author.bibliography}";
   }
 
   String getInfoPicture(Picture picture) {

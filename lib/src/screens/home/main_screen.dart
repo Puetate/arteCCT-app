@@ -12,7 +12,6 @@ import 'package:arte_ctt_app/src/screens/home/tabs/scanner_tab/scanner_tab.dart'
 import 'package:arte_ctt_app/src/screens/home/tabs/search_tab/search_tab.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 
-
 class Home extends StatefulWidget {
   const Home({super.key});
   @override
@@ -63,7 +62,6 @@ class _HomeState extends State<Home> {
                     ),
                     const ScannerTab(),
                     const SearchTab(),
-                    const ArtistTab(),
                     const RadioTab()
                   ]),
             ),
@@ -72,10 +70,24 @@ class _HomeState extends State<Home> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  InkWell(
-                    child: TooltipNotificationsAgenda(tooltipController: tooltipController),
-                    onTap: () => showTooltip,
-                  )
+                  Column(
+                    children: [
+                      InkWell(
+                        child: TooltipNotificationsAgenda(
+                            tooltipController: tooltipController),
+                        onTap: () => showTooltip,
+                      ),
+                      Visibility(
+                        visible: context.watch<RadioProvider>().playing &&
+                            !context.watch<RadioProvider>().isCurrentPageRadio,
+                        child: InkWell(
+                          child: TooltipRadioPlayer(
+                              tooltipController: tooltipController),
+                          onTap: () => showTooltip,
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -113,10 +125,6 @@ class _HomeState extends State<Home> {
               GButton(
                 icon: Icons.search,
                 text: "Buscar",
-              ),
-              GButton(
-                icon: Icons.face_retouching_natural,
-                text: "Artistas",
               ),
               GButton(
                 icon: Icons.radio,
