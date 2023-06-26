@@ -26,10 +26,10 @@ class DetailsImage extends StatelessWidget {
           height: heightPicture,
           width: width,
           child: Hero(
-            tag: picture.urlImage,
+            tag: picture.code,
             child: FadeInImage(
               placeholder: const AssetImage("assets/images/loading1.gif"),
-              image: CachedNetworkImageProvider(picture.urlImage),
+              image: CachedNetworkImageProvider((picture.imageWordpressUrl != "")?picture.imageWordpressUrl:picture.imageUrl),
               fit: BoxFit.cover,
             ),
           ),

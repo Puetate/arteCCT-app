@@ -1,12 +1,16 @@
+import 'package:arte_ctt_app/src/domain/api/casa_cultura_tungurahua_api.dart';
 import 'package:arte_ctt_app/src/providers/radio_provider.dart';
 import 'package:arte_ctt_app/src/screens/home/main_screen.dart';
 import 'package:arte_ctt_app/src/screens/picture_info/picture_info.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Api.configureDio();
   runApp(ChangeNotifierProvider(
     create: (_) => RadioProvider(),
     child: const MyApp(),

@@ -1,5 +1,6 @@
 import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -53,22 +54,20 @@ class HistoryPibliographyPicture extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text.rich(
-                          TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Autor: ',
-                                  style: Styles.textStyleTitle.copyWith(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500)),
-                              TextSpan(
-                                text: picture.autor,
+                        Expanded(
+                            flex: 1,
+                            child: AutoSizeText('Autor: ',
                                 style: Styles.textStyleTitle.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ],
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500))),
+                        Expanded(
+                          flex: 2,
+                          child: AutoSizeText(
+                            picture.author.fullName,
+                            style: Styles.textStyleTitle.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
                         ),
                       ],
@@ -78,7 +77,7 @@ class HistoryPibliographyPicture extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            picture.bibliography,
+                            picture.author.bibliography,
                             style: Styles.textStyleTitle.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w300,

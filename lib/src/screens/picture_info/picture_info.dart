@@ -14,31 +14,77 @@ class PictureInfoScreen extends StatefulWidget {
   State<PictureInfoScreen> createState() => _PictureInfoScreenState();
 }
 
-class _PictureInfoScreenState extends State<PictureInfoScreen> {
+class _PictureInfoScreenState extends State<PictureInfoScreen>
+    with SingleTickerProviderStateMixin {
   TextToSpeech tts = TextToSpeech();
+  late AnimationController _animationController;
+  ScrollController controller = ScrollController();
+  late Picture picture;
   double volume = 1; // Range: 0-1
   double rate = 1.0; // Range: 0-2
   double pitch = 1.0;
   String languageCode = 'es-EC';
+  bool isSpeechPlaying = false;
 
   Future<void> speak(String description) async {
     tts.setVolume(volume);
     tts.setRate(rate);
     tts.setLanguage(languageCode);
     tts.setPitch(pitch);
-    tts.speak(description);
+    await tts.speak(description);
   }
 
-  String getInfoPictureToSpeech(Picture picture) =>
-      "${picture.name}. Historia. ${picture.description} Autor. ${picture.autor}. ${picture.bibliography}";
+  Future<void> _iconTapped(Picture picture) async {
+    if (isSpeechPlaying == false) {
+      _animationController.forward();
+      controller.animateTo(controller.position.maxScrollExtent,
+          duration: const Duration(seconds: 25), curve: Curves.linear);
+      await speak(getInfoPictureToSpeech(picture));
+      isSpeechPlaying = true;
+    } else {
+      _animationController.reverse();
+      isSpeechPlaying = false;
+      tts.stop();
+    }
+  }
+
+  String getInfoPictureToSpeech(Picture picture) {
+    return "${picture.name}. Historia. ${picture.description}. Autor. ${picture.author.bibliography}";
+  }
+
+  String getInfoPicture(Picture picture) {
+    String description = "";
+    if (picture.description != null) {
+      description = picture.description;
+    } else {
+      description =
+          "Pintada sobre ${picture.support}, se utilizó la técnica de ${picture.technique}. La obra titulada ${picture.name} pertenece al siglo XX. Proveniente de ${picture.country}, con dimensiones de ${picture.pieceHeight} cm de altura y ${picture.pieceWidth} cm de ancho. La obra se encuentra ubicada en la ${picture.location} de la casa de la cultura de Tungurahua.";
+    }
+    return description;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    controller.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (controller.offset >= controller.position.maxScrollExtent) {
+      _animationController.reverse();
+      isSpeechPlaying = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = AppLayout.getSize(context);
     final heightCover = (size.height - 90);
-    ScrollController controller = ScrollController();
 
-    final picture = ModalRoute.of(context)!.settings.arguments as Picture;
+    picture = ModalRoute.of(context)!.settings.arguments as Picture;
+    picture.description = getInfoPicture(picture);
     return Scaffold(
       backgroundColor: Styles.primaryColor,
       body: CustomScrollView(
@@ -80,22 +126,15 @@ class _PictureInfoScreenState extends State<PictureInfoScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.play_circle_outline_rounded,
-                                      size: 70,
+                                  GestureDetector(
+                                    onTap: () => _iconTapped(picture),
+                                    child: AnimatedIcon(
                                       color: Styles.white,
+                                      icon: AnimatedIcons.play_pause,
+                                      progress: _animationController,
+                                      size: 70,
                                     ),
-                                    tooltip: 'Escuchar Historia de Pintura',
-                                    onPressed: () {
-                                      controller.animateTo(
-                                          controller.position.maxScrollExtent,
-                                          duration: const Duration(seconds: 25),
-                                          curve: Curves.linear);
-
-                                      speak(getInfoPictureToSpeech(picture));
-                                    },
-                                  ),
+                                  )
                                 ],
                               ),
                             ),

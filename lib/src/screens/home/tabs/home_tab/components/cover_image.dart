@@ -38,7 +38,7 @@ class CoverImage extends StatelessWidget {
           }, */
             child: FadeInImage(
               placeholder: const AssetImage("assets/images/loading1.gif"),
-              image: CachedNetworkImageProvider(picture.urlImage),
+              image: CachedNetworkImageProvider((picture.imageWordpressUrl != "")?picture.imageWordpressUrl:picture.imageUrl),
               fit: BoxFit.cover,
             ),
           ),

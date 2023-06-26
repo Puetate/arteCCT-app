@@ -13,7 +13,7 @@ class CardImage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Hero(
-          tag: picture.urlImage,
+          tag: picture.code,
           child: Material(
             child: InkWell(
               splashColor: Colors.red,
@@ -24,7 +24,7 @@ class CardImage extends StatelessWidget {
               child: FadeInImage(
                 placeholder: const AssetImage("assets/images/loading1.gif"),
                 image: /* AssetImage(picture.image) */
-                    CachedNetworkImageProvider(picture.urlImage),
+                    CachedNetworkImageProvider((picture.imageWordpressUrl != "")?picture.imageWordpressUrl:picture.imageUrl),
                 fit: BoxFit.cover,
               ),
             ),
