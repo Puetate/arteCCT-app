@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 class GradientContainer extends StatelessWidget {
   const GradientContainer(
-      {super.key, required this.withContainer, required this.heightContainer, required this.turn});
+      {super.key,
+      required this.withContainer,
+      required this.heightContainer,
+      required this.turn});
   final double withContainer;
   final double heightContainer;
   final int turn;

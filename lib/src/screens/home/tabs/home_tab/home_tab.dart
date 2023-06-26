@@ -1,3 +1,4 @@
+import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -10,8 +11,11 @@ import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/cover_ima
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 
+typedef OnIndexTab = Function(int index);
+
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+  final OnIndexTab onIndexTab;
+  const HomeTab({super.key, required this.onIndexTab});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -19,10 +23,12 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   ApiRepositoryImpl serviceApi = ApiRepositoryImpl();
+  int indexTabRadio = 4;
 
   @override
   Widget build(BuildContext context) {
     final Size size = AppLayout.getSize(context);
+    final service = ApiRepositoryImpl();
 
     var assetsImageRCCT = 'assets/images/RCCT.png';
     final heightCover = (size.height - 112);
@@ -36,22 +42,34 @@ class _HomeTabState extends State<HomeTab> {
               Stack(
                 children: [
                   //* ------------> CARRUSEL CAVER IMAGE
-                  CarouselSlider.builder(
-                    itemCount: pictures.length - 3,
-                    options: CarouselOptions(
-                      height: heightCover,
-                      viewportFraction: 1.0,
-                      enlargeCenterPage: false,
-                      // autoPlay: false,
-                    ),
-                    itemBuilder: (context, index, realIdx) {
-                      final coverImage = pictures[index];
-                      return CoverImage(
-                        heightPicture: heightCover,
-                        width: size.width,
-                        heightGradient: (size.height * 0.13),
-                        picture: coverImage,
-                      );
+
+                  FutureBuilder<List<Picture>>(
+                    future: service.getFeaturedPictures(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData &&
+                          snapshot.connectionState == ConnectionState.done) {
+                        List<Picture> pictures = snapshot.data!;
+                        return CarouselSlider.builder(
+                          itemCount: pictures.length,
+                          options: CarouselOptions(
+                            height: heightCover,
+                            viewportFraction: 1.0,
+                            enlargeCenterPage: false,
+                            // autoPlay: false,
+                          ),
+                          itemBuilder: (context, index, realIdx) {
+                            final coverImage = pictures[index];
+                            return CoverImage(
+                              heightPicture: heightCover,
+                              width: size.width,
+                              heightGradient: (size.height * 0.13),
+                              picture: coverImage,
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
                     },
                   ),
 
@@ -134,21 +152,33 @@ class _HomeTabState extends State<HomeTab> {
           ),
           //* -------------> CAROUSEL PINTURAS
           const Gap(5),
-          CarouselSlider.builder(
-            itemCount: pictures.length,
-            options: CarouselOptions(
-              enableInfiniteScroll: true,
-              autoPlay: true,
-              height: 200.0,
-              autoPlayCurve: Curves.easeInOut,
-              enlargeCenterPage: true,
-              autoPlayInterval: const Duration(seconds: 5),
-            ),
-            itemBuilder: (context, index, realIdx) {
-              final pictureCarousel = pictures[index];
-              return CardImage(
-                picture: pictureCarousel,
-              );
+
+          FutureBuilder<List<Picture>>(
+            future: service.getPictures(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData &&
+                  snapshot.connectionState == ConnectionState.done) {
+                List<Picture> pictures = snapshot.data!;
+                return CarouselSlider.builder(
+                  itemCount: pictures.length,
+                  options: CarouselOptions(
+                    enableInfiniteScroll: true,
+                    autoPlay: true,
+                    height: 200.0,
+                    autoPlayCurve: Curves.easeInOut,
+                    enlargeCenterPage: true,
+                    autoPlayInterval: const Duration(seconds: 5),
+                  ),
+                  itemBuilder: (context, index, realIdx) {
+                    final pictureCarousel = pictures[index];
+                    return CardImage(
+                      picture: pictureCarousel,
+                    );
+                  },
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
             },
           ),
 
@@ -180,7 +210,9 @@ class _HomeTabState extends State<HomeTab> {
                   ],
                 ),
               ),
-              onPressed: () async {},
+              onPressed: () {
+                widget.onIndexTab(indexTabRadio);
+              },
             ),
           ),
         ],
@@ -188,43 +220,3 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 }
-
-/* 
-SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: FutureBuilder<List<Picture>>(
-                  future: serviceApi.getPictures(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return snapshot.data!.isNotEmpty
-                          ? ListView.builder(
-                              itemCount: snapshot.data?.length,
-                              itemBuilder: (context, index) {
-                                final picture = snapshot.data![index];
-                                return PictureFrontPage(
-                                  heightPicture: (size.height - 112),
-                                  width: size.width,
-                                  heightGradient: (size.height * 0.13),
-                                  picture: picture,
-                                );
-                              },
-                            )
-                          : const Center(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  "No existen pinturas destacadas",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: Styles.primaryColor,
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ), */
