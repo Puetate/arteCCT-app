@@ -32,113 +32,18 @@ class _HomeTabState extends State<HomeTab> {
 
     var assetsImageRCCT = 'assets/images/RCCT.png';
     final heightCover = (size.height - 112);
+    String titleFeaturedPicures = 'Pinturas Destacadas';
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Styles.primaryColor,
       body: ListView(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  //* ------------> CARRUSEL CAVER IMAGE
-
-                  FutureBuilder<List<Picture>>(
-                    future: service.getFeaturedPictures(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData &&
-                          snapshot.connectionState == ConnectionState.done) {
-                        List<Picture> pictures = snapshot.data!;
-                        return CarouselSlider.builder(
-                          itemCount: pictures.length,
-                          options: CarouselOptions(
-                            height: heightCover,
-                            viewportFraction: 1.0,
-                            enlargeCenterPage: false,
-                            // autoPlay: false,
-                          ),
-                          itemBuilder: (context, index, realIdx) {
-                            final coverImage = pictures[index];
-                            return CoverImage(
-                              heightPicture: heightCover,
-                              width: size.width,
-                              heightGradient: (size.height * 0.13),
-                              picture: coverImage,
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
-                  ),
-
-                  GradientContainer(
-                      turn: 0,
-                      withContainer: size.width,
-                      heightContainer: (size.height * 0.13)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: Text(
-                          "Pinturas Destacadas",
-                          style: Styles.textStyleTitle.copyWith(fontSize: 20),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: heightCover,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: Styles.transparent,
-                        ),
-                        Transform.translate(
-                          offset: const Offset(0, -10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Icon(
-                                Icons.chevron_right_rounded,
-                                size: 40,
-                                color: Styles.white.withOpacity(0.7),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Transform.translate(
-                          offset: const Offset(0, -10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                size: 40,
-                                color: Styles.white.withOpacity(0.5),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Pinturas',
+                  titleFeaturedPicures,
                   style: Styles.textStyleTitle
                       .copyWith(fontWeight: FontWeight.bold),
                 ),

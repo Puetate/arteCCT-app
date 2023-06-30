@@ -72,11 +72,6 @@ class _HomeState extends State<Home> {
                 children: [
                   Column(
                     children: [
-                      InkWell(
-                        child: TooltipNotificationsAgenda(
-                            tooltipController: tooltipController),
-                        onTap: () => showTooltip,
-                      ),
                       Visibility(
                         visible: context.watch<RadioProvider>().playing &&
                             !context.watch<RadioProvider>().isCurrentPageRadio,
