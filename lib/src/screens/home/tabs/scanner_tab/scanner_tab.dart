@@ -53,7 +53,8 @@ class _ScannerTabState extends State<ScannerTab> {
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        MySnackBars.warningSnackBar,
+        MySnackBars.warningSnackBar(
+            'Por favor habilite los permisos de uso de cámara.', 'Permisos!'),
       );
     }
   }
