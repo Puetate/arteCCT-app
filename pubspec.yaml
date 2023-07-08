@@ -49,13 +49,13 @@ dependencies:
   just_the_tooltip: ^0.0.12
   provider: ^6.0.5
   audio_wave: ^0.1.5
-  flutter_radio_player: ^2.0.2
   text_to_speech: ^0.2.3
   qr_code_scanner: ^1.0.1
   page_transition: ^2.0.9
   flutter_dotenv: ^5.1.0
   dio: ^5.2.1+1
   auto_size_text: ^3.0.0
+  just_audio: ^0.9.34
 
 dev_dependencies:
   flutter_test:
