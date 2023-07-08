@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:arte_ctt_app/src/data/datasource/api_repository_impl.dart';
+import 'package:arte_ctt_app/src/screens/components/loading_picture_qr.dart';
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
+import 'package:arte_ctt_app/src/utils/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -18,6 +20,7 @@ class _ScannerTabState extends State<ScannerTab> {
   String idResultScanner = "";
   final GlobalKey qrKey = GlobalKey(debugLabel: "QR");
   bool _isLoading = true;
+  bool _isLoadingPicture = false;
   double getScanArea(Size size) =>
       (size.width < 400 || size.height < 400) ? 220 : 370;
 
@@ -42,7 +45,7 @@ class _ScannerTabState extends State<ScannerTab> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) async {
+    controller.scannedDataStream.listen((scanData) {
       getPicture(scanData.code!);
     });
   }
@@ -50,19 +53,30 @@ class _ScannerTabState extends State<ScannerTab> {
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sin Permisos')),
+        MySnackBars.warningSnackBar,
       );
     }
   }
 
   Future<void> getPicture(String id) async {
+    setState(() => _isLoadingPicture = true);
     controller?.pauseCamera();
     final service = ApiRepositoryImpl();
     return await service.getPicture(id).then((picture) async {
+      if (picture == null) {
+        setState(() => _isLoadingPicture = false);
+        controller?.resumeCamera();
+        return;
+      }
+
       await Navigator.of(context)
           .pushNamed('/picture_info', arguments: picture);
       if (!mounted) return;
       controller?.resumeCamera();
+      setState(() => _isLoadingPicture = false);
+    }).onError((error, stackTrace) {
+      controller?.resumeCamera();
+      setState(() => _isLoadingPicture = false);
     });
   }
 
@@ -81,17 +95,24 @@ class _ScannerTabState extends State<ScannerTab> {
                   size: size.width / 2,
                   color: Styles.white,
                 ))
-              : QRView(
-                  key: qrKey,
-                  onQRViewCreated: _onQRViewCreated,
-                  overlay: QrScannerOverlayShape(
-                      borderColor: Colors.red,
-                      borderRadius: 10,
-                      borderLength: 30,
-                      borderWidth: 10,
-                      cutOutSize: getScanArea(size)),
-                  onPermissionSet: (ctrl, p) =>
-                      _onPermissionSet(context, ctrl, p),
+              : Stack(
+                  children: [
+                    QRView(
+                      key: qrKey,
+                      onQRViewCreated: _onQRViewCreated,
+                      overlay: QrScannerOverlayShape(
+                          borderColor: Colors.red,
+                          borderRadius: 10,
+                          borderLength: 30,
+                          borderWidth: 10,
+                          cutOutSize: getScanArea(size)),
+                      onPermissionSet: (ctrl, p) =>
+                          _onPermissionSet(context, ctrl, p),
+                    ),
+                    Visibility(
+                        visible: _isLoadingPicture,
+                        child: LoadingQR(size: size))
+                  ],
                 ),
         ),
       ],

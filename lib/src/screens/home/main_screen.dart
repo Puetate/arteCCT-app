@@ -1,11 +1,11 @@
+import 'package:arte_ctt_app/src/data/datasource/api_repository_impl.dart';
+import 'package:arte_ctt_app/src/data/datasource/pictures_proxy.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:provider/provider.dart';
 import 'package:arte_ctt_app/src/providers/radio_provider.dart';
-import 'package:arte_ctt_app/src/screens/components/tooltip_notifications_agenda.dart';
 import 'package:arte_ctt_app/src/screens/components/tooltip_radio_player.dart';
-import 'package:arte_ctt_app/src/screens/home/tabs/artist_tab/artist_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/home_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/radio_tab/radio_tab.dart';
 import 'package:arte_ctt_app/src/screens/home/tabs/scanner_tab/scanner_tab.dart';
@@ -23,6 +23,8 @@ class _HomeState extends State<Home> {
   final tooltipController = JustTheController();
   bool isOpenTooltip = false;
   int _selectedIndex = 0;
+  late ApiRepositoryImpl picturesService;
+  late PictureProxy picturesProxy;
 
   void _onItemTapped(int index) {
     context.read<RadioProvider>().setIsCurrentPageRadio(false);
@@ -42,9 +44,10 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    picturesService = ApiRepositoryImpl();
+    picturesProxy = PictureProxy(picturesService);
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,11 +61,10 @@ class _HomeState extends State<Home> {
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     HomeTab(
-                      onIndexTab: _onItemTapped,
+                      picturesProxy: picturesProxy,
                     ),
                     const ScannerTab(),
                     const SearchTab(),
-                    const RadioTab()
                   ]),
             ),
             Padding(
@@ -120,10 +122,6 @@ class _HomeState extends State<Home> {
               GButton(
                 icon: Icons.search,
                 text: "Buscar",
-              ),
-              GButton(
-                icon: Icons.radio,
-                text: "Radio",
               ),
             ],
           ),
