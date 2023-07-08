@@ -1,3 +1,5 @@
+import 'package:arte_ctt_app/src/global/global_variable.dart';
+import 'package:arte_ctt_app/src/utils/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -22,11 +24,10 @@ Map<String, bool> playingStatus = {
 
 class RadioProvider with ChangeNotifier {
   final radioTitle = "Radio CTT";
-  // final String urlRadio = 'https://radio42.globalhost1.com/8';
   final String urlRadio = 'https://radio42.globalhost1.com/8048/stream';
-  // final String urlRadio =
-  //     'https://mdstrm.com/audio/60a2745ff943100826374a70/icecast.audio';
-  AudioPlayer _audioPlayer = AudioPlayer();
+  final String radioOfflineTittle = "Error";
+  final String radioOfflineMessage = "Radio fuera de servicio";
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   bool _playing = false;
   bool _isCurrentPageRadio = false;
@@ -42,11 +43,15 @@ class RadioProvider with ChangeNotifier {
   }
 
   void togglePlaying() async {
-    if (_isError) return;
+    if (_isError) {
+      ScaffoldMessenger.of(GlobalVariable.navigatorState.currentContext!)
+          .showSnackBar(MySnackBars.warningSnackBar(
+              radioOfflineMessage, radioOfflineTittle));
+      return;
+    }
     (_audioPlayer.playing) ? _audioPlayer.pause() : _audioPlayer.play();
     _playing = _audioPlayer.playing;
     notifyListeners();
-    print("AudioPlayer toogle ${_audioPlayer.playing}");
   }
 
   initRadioPlayer(bool startPlaying) async {
