@@ -1,15 +1,14 @@
 import 'dart:io';
 
+import 'package:arte_ctt_app/src/global/global_variable.dart';
+import 'package:arte_ctt_app/src/utils/snackbars.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Api {
   static final Dio _dio = Dio();
-
   static void configureDio() async {
-    ///Base url
-    await dotenv.load();
-
     _dio.options.baseUrl = dotenv.env['BASE_URL']!;
     _dio.options.headers = {
       HttpHeaders.contentTypeHeader: "application/json",
@@ -24,8 +23,8 @@ class Api {
 
       return resp.data;
     } catch (e) {
-      print(e);
-      throw ('Error en el GET');
+      ScaffoldMessenger.of(GlobalVariable.navigatorState.currentContext!)
+          .showSnackBar(MySnackBars.errorConnectionSnackBar());
     }
   }
 
@@ -36,8 +35,8 @@ class Api {
       final resp = await _dio.post(path, data: formData);
       return resp.data;
     } catch (e) {
-      print(e);
-      throw ('Error en el POST');
+      ScaffoldMessenger.of(GlobalVariable.navigatorState.currentContext!)
+          .showSnackBar(MySnackBars.errorConnectionSnackBar());
     }
   }
 
@@ -48,8 +47,8 @@ class Api {
       final resp = await _dio.put(path, data: formData);
       return resp.data;
     } catch (e) {
-      print(e);
-      throw ('Error en el PUT');
+      ScaffoldMessenger.of(GlobalVariable.navigatorState.currentContext!)
+          .showSnackBar(MySnackBars.errorConnectionSnackBar());
     }
   }
 
@@ -60,8 +59,8 @@ class Api {
       final resp = await _dio.delete(path, data: formData);
       return resp.data;
     } catch (e) {
-      print(e);
-      throw ('Error en el delete');
+      ScaffoldMessenger.of(GlobalVariable.navigatorState.currentContext!)
+          .showSnackBar(MySnackBars.errorConnectionSnackBar());
     }
   }
 }

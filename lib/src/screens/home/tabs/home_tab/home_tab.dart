@@ -1,221 +1,178 @@
-import 'package:arte_ctt_app/src/domain/models/picture.dart';
+import 'dart:async';
+
+import 'package:arte_ctt_app/src/providers/manager_proxy_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import 'package:arte_ctt_app/src/data/in_memory_pictures.dart';
+import 'package:arte_ctt_app/src/data/datasource/pictures_proxy.dart';
+import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/screens/components/card_images.dart';
-import 'package:arte_ctt_app/src/data/datasource/api_repository_impl.dart';
-import 'package:arte_ctt_app/src/screens/components/gradient_container.dart';
-import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/cover_image.dart';
-import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
-
-typedef OnIndexTab = Function(int index);
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
-  final OnIndexTab onIndexTab;
-  const HomeTab({super.key, required this.onIndexTab});
+  final PictureProxy picturesProxy;
+  const HomeTab({super.key, required this.picturesProxy});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {
-  ApiRepositoryImpl serviceApi = ApiRepositoryImpl();
   int indexTabRadio = 3;
+  var assetsImageRCCT = 'assets/images/RCCT.png';
+  String titleFeaturedPictures = 'Obras Destacadas';
+  List<Picture> featuredPictures = List<Picture>.empty(growable: true);
+  final title = "Casa de la cultura Tungurahua";
+  final String cttLogoPath = "assets/images/cct_logo.png";
+
+  bool _isLoading = true;
+
+  Future refresh(bool needReset) async {
+    setState(() {
+      if (featuredPictures.isNotEmpty) featuredPictures.clear();
+      _isLoading = true;
+    });
+    List<Picture> picturesData = await context
+        .read<ManagerProxyProvider>()
+        .getFeaturedPictures(needReset);
+    setState(() {
+      featuredPictures = picturesData;
+      if (featuredPictures.isEmpty) _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    refresh(false);
+    Timer(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Size size = AppLayout.getSize(context);
-    final service = ApiRepositoryImpl();
-
-    var assetsImageRCCT = 'assets/images/RCCT.png';
-    final heightCover = (size.height - 112);
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: ListView(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
+      backgroundColor: Styles.primaryColor,
+      body: RefreshIndicator(
+        backgroundColor: Styles.primaryColor,
+        color: Styles.white,
+        edgeOffset: 70,
+        onRefresh: () => refresh(true),
+        child: ListView(
+          children: [
+            Center(
+              child: Column(
                 children: [
-                  //* ------------> CARRUSEL CAVER IMAGE
-
-                  FutureBuilder<List<Picture>>(
-                    future: service.getFeaturedPictures(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData &&
-                          snapshot.connectionState == ConnectionState.done) {
-                        List<Picture> pictures = snapshot.data!;
-                        return CarouselSlider.builder(
-                          itemCount: pictures.length,
-                          options: CarouselOptions(
-                            height: heightCover,
-                            viewportFraction: 1.0,
-                            enlargeCenterPage: false,
-                            // autoPlay: false,
-                          ),
-                          itemBuilder: (context, index, realIdx) {
-                            final coverImage = pictures[index];
-                            return CoverImage(
-                              heightPicture: heightCover,
-                              width: size.width,
-                              heightGradient: (size.height * 0.13),
-                              picture: coverImage,
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
-                  ),
-
-                  GradientContainer(
-                      turn: 0,
-                      withContainer: size.width,
-                      heightContainer: (size.height * 0.13)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: Text(
-                          "Pinturas Destacadas",
-                          style: Styles.textStyleTitle.copyWith(fontSize: 20),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: heightCover,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: Styles.transparent,
-                        ),
-                        Transform.translate(
-                          offset: const Offset(0, -10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Icon(
-                                Icons.chevron_right_rounded,
-                                size: 40,
-                                color: Styles.white.withOpacity(0.7),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Transform.translate(
-                          offset: const Offset(0, -10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                size: 40,
-                                color: Styles.white.withOpacity(0.5),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                  const Gap(30),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Styles.secondary, width: 30),
+                      borderRadius: const BorderRadius.all(Radius.circular(25)),
                     ),
-                  )
+                    padding: const EdgeInsets.all(30),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.asset(cttLogoPath)),
+                  ),
+                  const Gap(30),
+                  Text(title.toUpperCase(),
+                      style: TextStyle(color: Styles.white, fontSize: 20)),
+                  const Gap(30),
                 ],
               ),
-            ],
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Pinturas',
-                  style: Styles.textStyleTitle
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                Icon(
-                  Icons.chevron_right_sharp,
-                  color: Styles.white,
-                  size: 40,
-                )
-              ],
             ),
-          ),
-          //* -------------> CAROUSEL PINTURAS
-          const Gap(5),
 
-          FutureBuilder<List<Picture>>(
-            future: service.getPictures(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData &&
-                  snapshot.connectionState == ConnectionState.done) {
-                List<Picture> pictures = snapshot.data!;
-                return CarouselSlider.builder(
-                  itemCount: pictures.length,
-                  options: CarouselOptions(
-                    enableInfiniteScroll: true,
-                    autoPlay: true,
-                    height: 200.0,
-                    autoPlayCurve: Curves.easeInOut,
-                    enlargeCenterPage: true,
-                    autoPlayInterval: const Duration(seconds: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    titleFeaturedPictures,
+                    style: Styles.textStyleTitle
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  itemBuilder: (context, index, realIdx) {
-                    final pictureCarousel = pictures[index];
-                    return CardImage(
-                      picture: pictureCarousel,
-                    );
-                  },
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            },
-          ),
-
-          //* -------------> BOTÓN RADIO
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Styles.secondary,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(35)),
-                padding: const EdgeInsets.symmetric(vertical: 1),
+                ],
               ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      assetsImageRCCT,
-                      height: 65,
-                    ),
-                    Icon(
-                      Icons.play_circle_filled_rounded,
-                      color: Styles.white,
-                      size: 50,
-                    )
-                  ],
-                ),
-              ),
-              onPressed: () {
-                widget.onIndexTab(indexTabRadio);
-              },
             ),
-          ),
-        ],
+            //* -------------> CAROUSEL PINTURAS
+            const Gap(5),
+
+            (featuredPictures.isNotEmpty)
+                ? CarouselSlider.builder(
+                    itemCount: featuredPictures.length,
+                    options: CarouselOptions(
+                      enableInfiniteScroll: false,
+                      autoPlay: true,
+                      height: 200.0,
+                      autoPlayCurve: Curves.easeInOut,
+                      enlargeCenterPage: true,
+                      autoPlayInterval: const Duration(seconds: 5),
+                    ),
+                    itemBuilder: (context, index, realIdx) {
+                      final pictureCarousel = featuredPictures[index];
+                      return CardImage(
+                        picture: pictureCarousel,
+                      );
+                    },
+                  )
+                : SizedBox(
+                    height: 200,
+                    child: Center(
+                      child: (_isLoading)
+                          ? CircularProgressIndicator(
+                              color: Styles.white,
+                            )
+                          : Icon(
+                              Icons.wifi_off_rounded,
+                              color: Styles.white,
+                              size: 30,
+                            ),
+                    ),
+                  ),
+
+            //* -------------> BOTÓN AGENDA CULTURAL
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Styles.transparent,
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Styles.white),
+                      borderRadius: BorderRadius.circular(35)),
+                  padding: const EdgeInsets.symmetric(vertical: 1),
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Ver Agenda Cultural",
+                        style: Styles.textStyleTitle.copyWith(fontSize: 18),
+                      ),
+                      Icon(
+                        Icons.chevron_right_rounded,
+                        color: Styles.white,
+                        size: 30,
+                      )
+                    ],
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/cultural_agenda');
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
