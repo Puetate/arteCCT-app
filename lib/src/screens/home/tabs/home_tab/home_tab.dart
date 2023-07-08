@@ -8,6 +8,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:arte_ctt_app/src/data/datasource/pictures_proxy.dart';
 import 'package:arte_ctt_app/src/domain/models/picture.dart';
 import 'package:arte_ctt_app/src/screens/components/card_images.dart';
+import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/radio_button.dart';
+import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
 import 'package:provider/provider.dart';
 
@@ -137,6 +139,8 @@ class _HomeTabState extends State<HomeTab> {
                     ),
                   ),
 
+            // * -------------> BOTÓN RADIO
+            const RadioButton(),
             //* -------------> BOTÓN AGENDA CULTURAL
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
