@@ -1,9 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 
-
 class MySnackBars {
-
   static failureSnackBar(String message, String title) => SnackBar(
         elevation: 0,
         behavior: SnackBarBehavior.floating,
@@ -21,11 +19,11 @@ class MySnackBars {
         backgroundColor: Colors.transparent,
         content: AwesomeSnackbarContent(
           title: 'Error!',
-          message:  'No se pudo conectar a Internet.\nPor favor compruebe su conexión!',
+          message:
+              'No se pudo conectar a Internet.\nPor favor compruebe su conexión!',
           contentType: ContentType.failure,
         ),
       );
-
 
   static var helpSnackBar = SnackBar(
     elevation: 0,
@@ -33,12 +31,10 @@ class MySnackBars {
     backgroundColor: Colors.transparent,
     content: AwesomeSnackbarContent(
       title: 'Hi There!',
-      message:
-          '',
+      message: '',
       contentType: ContentType.help,
     ),
   );
-
 
   static var successSnackBar = SnackBar(
     elevation: 0,
@@ -46,8 +42,7 @@ class MySnackBars {
     backgroundColor: Colors.transparent,
     content: AwesomeSnackbarContent(
       title: 'Enviado!',
-      message:
-          '',
+      message: '',
       contentType: ContentType.success,
     ),
   );
@@ -63,17 +58,16 @@ class MySnackBars {
         ),
       );
 
-
-  static var warningSnackBar = SnackBar(
-    elevation: 0,
-    behavior: SnackBarBehavior.floating,
-    backgroundColor: Colors.transparent,
-    content: AwesomeSnackbarContent(
-      title: 'Permisos!',
-      message: 'Por favor habilite los permisos de uso de cámara.',
-      contentType: ContentType.warning,
-    ),
-  );
+  static warningSnackBar(String message, String title) => SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: title,
+          message: message,
+          contentType: ContentType.warning,
+        ),
+      );
 
   static simpleSnackbar(String message, IconData icon, Color color) => SnackBar(
         elevation: 15,
