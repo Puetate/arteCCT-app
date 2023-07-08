@@ -64,7 +64,7 @@ class _RadioButtonState extends State<RadioButton>
                 child: MusicVisualizer(
                   height: 60,
                   width: 140,
-                  elementsNumber: 10,
+                  barsNumber: 10,
                 ),
               ),
               Container(

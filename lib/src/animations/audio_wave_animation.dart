@@ -5,9 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MusicVisualizer extends StatefulWidget {
-  const MusicVisualizer({super.key, required this.height, required this.width});
-  final double height;
-  final double width;
+  MusicVisualizer({
+    Key? key,
+    this.barsNumber = 15,
+    this.height,
+    this.width,
+  }) : super(key: key);
+  double? height;
+  double? width;
+  int barsNumber;
 
   @override
   State<MusicVisualizer> createState() => _MusicVisualizer();
@@ -29,7 +35,7 @@ class _MusicVisualizer extends State<MusicVisualizer> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List<Widget>.generate(
-            15,
+            widget.barsNumber,
             (index) => VisualComponent(
                 duration: duration[index % 5], color: colors[index % 4])),
       ),
