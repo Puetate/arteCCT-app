@@ -5,79 +5,81 @@
 import 'dart:convert';
 
 import 'package:arte_ctt_app/src/domain/models/author.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Picture pictureFromJson(String str) => Picture.fromJson(json.decode(str));
 
 String pictureToJson(Picture data) => json.encode(data.toJson());
 
 class Picture {
-    String code;
-    String otherCode;
-    String name;
-    String centuryYear;
-    String deliveryType;
-    String signatureLocation;
-    String country;
-    String technique;
-    String support;
-    String conservationState;
-    String integrityState;
-    String incomeForm;
-    double incomePrice;
-    dynamic incomeYear;
-    double value;
-    double pieceHeight;
-    double pieceWidth;
-    double pieceDeep;
-    double gravingHeight;
-    double gravingWidth;
-    double frameElementHeight;
-    double frameElementWidth;
-    String imageUrl;
-    String imageWordpressUrl;
-    String observation;
-    dynamic description;
-    String location;
-    String recordedBy;
-    String reviewedBy;
-    dynamic registeredDate;
-    Author author;
+  String code;
+  String otherCode;
+  String name;
+  String centuryYear;
+  String deliveryType;
+  String signatureLocation;
+  String country;
+  String technique;
+  String support;
+  String conservationState;
+  String integrityState;
+  dynamic incomeForm;
+  dynamic incomePrice;
+  dynamic incomeYear;
+  dynamic value;
+  dynamic pieceHeight;
+  dynamic pieceWidth;
+  dynamic pieceDeep;
+  dynamic gravingHeight;
+  dynamic gravingWidth;
+  dynamic frameElementHeight;
+  dynamic frameElementWidth;
+  String imageUrl;
+  String imageWordpressUrl;
+  String observation;
+  dynamic description;
+  String location;
+  String recordedBy;
+  String reviewedBy;
+  dynamic registeredDate;
+  Author author;
 
-    Picture({
-        required this.code,
-        required this.otherCode,
-        required this.name,
-        required this.centuryYear,
-        required this.deliveryType,
-        required this.signatureLocation,
-        required this.country,
-        required this.technique,
-        required this.support,
-        required this.conservationState,
-        required this.integrityState,
-        required this.incomeForm,
-        required this.incomePrice,
-        required this.incomeYear,
-        required this.value,
-        required this.pieceHeight,
-        required this.pieceWidth,
-        required this.pieceDeep,
-        required this.gravingHeight,
-        required this.gravingWidth,
-        required this.frameElementHeight,
-        required this.frameElementWidth,
-        required this.imageUrl,
-        required this.imageWordpressUrl,
-        required this.observation,
-        this.description,
-        required this.location,
-        required this.recordedBy,
-        required this.reviewedBy,
-        this.registeredDate,
-        required this.author,
-    });
+  Picture({
+    required this.code,
+    required this.otherCode,
+    required this.name,
+    required this.centuryYear,
+    required this.deliveryType,
+    required this.signatureLocation,
+    required this.country,
+    required this.technique,
+    required this.support,
+    required this.conservationState,
+    required this.integrityState,
+    this.incomeForm,
+    this.incomePrice,
+    this.incomeYear,
+    this.value,
+    this.pieceHeight,
+    this.pieceWidth,
+    this.pieceDeep,
+    this.gravingHeight,
+    this.gravingWidth,
+    this.frameElementHeight,
+    this.frameElementWidth,
+    required this.imageUrl,
+    required this.imageWordpressUrl,
+    required this.observation,
+    this.description,
+    required this.location,
+    required this.recordedBy,
+    required this.reviewedBy,
+    this.registeredDate,
+    required this.author,
+  });
 
-    factory Picture.fromJson(Map<String, dynamic> json) => Picture(
+
+  factory Picture.fromJson(Map<String, dynamic> json) => Picture(
         code: json["code"],
         otherCode: json["other_code"],
         name: json["name"],
@@ -100,7 +102,7 @@ class Picture {
         gravingWidth: json["gravingWidth"],
         frameElementHeight: json["frameElementHeight"],
         frameElementWidth: json["frameElementWidth"],
-        imageUrl: json["imageURL"],
+        imageUrl: "${dotenv.env['HOST']!}${json["imageURL"]}",
         imageWordpressUrl: json["imageWordpressURL"],
         observation: json["observation"],
         description: json["description"],
@@ -109,9 +111,9 @@ class Picture {
         reviewedBy: json["reviewedBy"],
         registeredDate: json["registeredDate"],
         author: Author.fromJson(json["author"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "code": code,
         "other_code": otherCode,
         "name": name,
@@ -143,5 +145,5 @@ class Picture {
         "reviewedBy": reviewedBy,
         "registeredDate": registeredDate,
         "author": author.toJson(),
-    };
+      };
 }

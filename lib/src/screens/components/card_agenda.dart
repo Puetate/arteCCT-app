@@ -3,8 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CardAgenda extends StatelessWidget {
-  const CardAgenda({super.key, required this.agenda});
   final Agenda agenda;
+  const CardAgenda({super.key, required this.agenda});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class CardAgenda extends StatelessWidget {
             width: double.maxFinite,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: const InkWell(
+              child: InkWell(
                 splashColor: Colors.red,
                 /* onTap: () {
                     picture.copy();
@@ -33,9 +33,9 @@ class CardAgenda extends StatelessWidget {
                     }, */
                 child: FadeInImage(
                   filterQuality: FilterQuality.medium,
-                  placeholder: AssetImage("assets/images/loading1.gif"),
+                  placeholder: const AssetImage("assets/images/loading1.gif"),
                   image: CachedNetworkImageProvider(
-                      'https://culturatungurahua.com/wp-content/uploads/2023/05/ExaltacionYCoronacion.jpg'),
+                      agenda.imageUrl),
                   fit: BoxFit.fill,
                 ),
               ),
