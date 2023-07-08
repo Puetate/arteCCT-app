@@ -1,15 +1,12 @@
-import 'package:arte_ctt_app/src/domain/models/picture.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-
-import 'package:arte_ctt_app/src/data/in_memory_pictures.dart';
-import 'package:arte_ctt_app/src/screens/components/card_images.dart';
 import 'package:arte_ctt_app/src/data/datasource/api_repository_impl.dart';
-import 'package:arte_ctt_app/src/screens/components/gradient_container.dart';
-import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/cover_image.dart';
+import 'package:arte_ctt_app/src/domain/models/picture.dart';
+import 'package:arte_ctt_app/src/screens/components/card_images.dart';
+import 'package:arte_ctt_app/src/screens/home/tabs/home_tab/components/radio_button.dart';
 import 'package:arte_ctt_app/src/utils/app_layout.dart';
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 typedef OnIndexTab = Function(int index);
 
@@ -33,6 +30,7 @@ class _HomeTabState extends State<HomeTab> {
     var assetsImageRCCT = 'assets/images/RCCT.png';
     final heightCover = (size.height - 112);
     String titleFeaturedPicures = 'Pinturas Destacadas';
+
     return Scaffold(
       backgroundColor: Styles.primaryColor,
       body: ListView(
@@ -87,39 +85,8 @@ class _HomeTabState extends State<HomeTab> {
             },
           ),
 
-          //* -------------> BOTÓN RADIO
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Styles.secondary,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(35)),
-                padding: const EdgeInsets.symmetric(vertical: 1),
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      assetsImageRCCT,
-                      height: 65,
-                    ),
-                    Icon(
-                      Icons.play_circle_filled_rounded,
-                      color: Styles.white,
-                      size: 50,
-                    )
-                  ],
-                ),
-              ),
-              onPressed: () {
-                widget.onIndexTab(indexTabRadio);
-              },
-            ),
-          ),
+          // * -------------> BOTÓN RADIO
+          const RadioButton()
         ],
       ),
     );
