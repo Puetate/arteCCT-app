@@ -1,4 +1,4 @@
-package com.example.arte_ctt_app
+package com.artecct.dev.cct
 
 import io.flutter.embedding.android.FlutterActivity
 

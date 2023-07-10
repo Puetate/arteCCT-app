@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.arte_ctt_app">
+    package="com.artecct.dev.cct">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -9,9 +9,9 @@
         </intent>  
     </queries> 
    <application
-        android:label="arte_ctt_app"
+        android:label="Arte CCT"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
         <service android:name=".core.StreamingCore"/>         
         <activity
