@@ -48,9 +48,11 @@ class _HomeState extends State<Home> {
     picturesProxy = PictureProxy(picturesService);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Styles.primaryColor,
       body: SafeArea(
         child: Stack(
           children: [

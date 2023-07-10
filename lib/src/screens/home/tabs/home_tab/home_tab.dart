@@ -64,7 +64,6 @@ class _HomeTabState extends State<HomeTab> {
       body: RefreshIndicator(
         backgroundColor: Styles.primaryColor,
         color: Styles.white,
-        edgeOffset: 70,
         onRefresh: () => refresh(true),
         child: ListView(
           children: [
@@ -74,10 +73,10 @@ class _HomeTabState extends State<HomeTab> {
                   const Gap(30),
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Styles.secondary, width: 30),
-                      borderRadius: const BorderRadius.all(Radius.circular(25)),
+                      border: Border.all(color: Styles.secondary, width: 8),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
                     ),
-                    padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(20),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(cttLogoPath)),
@@ -85,7 +84,6 @@ class _HomeTabState extends State<HomeTab> {
                   const Gap(30),
                   Text(title.toUpperCase(),
                       style: TextStyle(color: Styles.white, fontSize: 20)),
-                  const Gap(30),
                 ],
               ),
             ),
@@ -138,19 +136,20 @@ class _HomeTabState extends State<HomeTab> {
                             ),
                     ),
                   ),
+            const Gap(30),
 
             // * -------------> BOTÓN RADIO
             const RadioButton(),
             //* -------------> BOTÓN AGENDA CULTURAL
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
+              padding: const EdgeInsets.only(top: 15, left: 40, right: 40),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Styles.transparent,
                   shape: RoundedRectangleBorder(
                       side: BorderSide(color: Styles.white),
                       borderRadius: BorderRadius.circular(35)),
-                  padding: const EdgeInsets.symmetric(vertical: 1),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
                 ),
                 child: Padding(
                   padding:

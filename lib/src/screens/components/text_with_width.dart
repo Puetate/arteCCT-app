@@ -1,4 +1,5 @@
 import 'package:arte_ctt_app/src/utils/app_styles.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class TextWithWidth extends StatelessWidget {
@@ -9,7 +10,7 @@ class TextWithWidth extends StatelessWidget {
     return Center(
         child: Stack(
       children: [
-        Text(
+        AutoSizeText(
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -21,7 +22,7 @@ class TextWithWidth extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        Text(
+        AutoSizeText(
           text,
           style: TextStyle(
             color: Styles.white,

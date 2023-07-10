@@ -9,11 +9,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CardPicture extends StatelessWidget {
   CardPicture({super.key, required this.picture}) {
-    a = picture.imageUrl.split(dotenv.env["HOST"]!)[1].isEmpty;
+    isUrlImage = picture.imageUrl.split(dotenv.env["HOST"]!)[1].isEmpty;
   }
   final Picture picture;
   final String loadingUrl = "assets/images/loading1.gif";
-  bool a = false;
+  bool isUrlImage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class CardPicture extends StatelessWidget {
                 width: (size.width) / 2,
                 fit: BoxFit.cover,
                 placeholder: AssetImage(loadingUrl),
-                image: a
+                image: isUrlImage
                     ? AssetImage(loadingUrl) as ImageProvider
                     : CachedNetworkImageProvider(picture.imageUrl)),
             Positioned(
@@ -40,7 +40,7 @@ class CardPicture extends StatelessWidget {
                 child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                     child: Container(
-                      width: (size.width - 32) / 2,
+                      width: (size.width - 20) / 2,
                       height: 40,
                       color: Colors.black.withOpacity(0),
                       child: TextWithWidth(text: picture.name),
