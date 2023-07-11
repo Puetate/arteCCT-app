@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: GlobalVariable.navigatorState,
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Arte CCT',
       //home: MyHomePage()
       theme: ThemeData(
         useMaterial3: true,
